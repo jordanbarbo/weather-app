@@ -88,3 +88,7 @@ li {
 .current-description {
   text-transform: capitalize;
 }
+
+.open-source-link {
+  text-align: center;
+}
