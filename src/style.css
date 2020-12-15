@@ -12,6 +12,7 @@
 h3 {
   font-size: 24px;
   color: #2ac9c9;
+  text-align: right;
 }
 
 h2 {
@@ -64,10 +65,13 @@ li {
 #current-location-button {
   background: #22a5a5;
   color: #d1fdff;
-  font-size: 10px;
+  font-size: 16px;
   border: none;
   border-radius: 6%;
   box-shadow: 0px 2px 3px 0px gray;
+  padding: 5px 10px;
+  display: block;
+  align-items: center;
 }
 
 #current-location-button:hover {
