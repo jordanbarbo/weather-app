@@ -38,49 +38,57 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-6">
-        <p>
-          Currently:
-        <br />
-         <span class="units">
-          <a href="#" id="celsius-link">°C /</a>
-          <a href="#" id="fahrenheit-link">°F</a>
-        </span>
-      </p>
-       
-        <h1>
-          <span id="current-temperature">
-            16
-          </span>
-        </h1>
-        
-      </div>
-      <div class="col-6">
-        <h2>
-          Los Angeles
-        </h2>
-        <div class="row">
-          <div class="col mostly-sunny">
-            ⛅️
+    <h2>
+      Los Angeles
+    </h2>
+
+    <div class="row"> 
+      <div class="col">
+        <ul>
+          <li>
+            <h1 id="current-temperature">
+              16
+            </h1>
+          </li>
+          <li class="units">
+            <a href="#" id="celsius-link">°C |</a>
+            <a href="#" id="fahrenheit-link">°F</a>
+          </li>
+        </ul>
+      </div> 
+
+          <div class="col">
+            <ul>
+            <li class="current-description">
+              Mostly Sunny
+            </li>
+            <li class="mostly-sunny">
+              ⛅️
+            </li>
+            <li>
+              <span class="current-high">
+                17
+              </span>
+              /
+              <span class="current-low">
+                9
+              </span>
+            </li>
+            </ul>
           </div>
           <div class="col">
-            <span class="current-description">
-              Mostly Sunny
-            </span>
-            <br />
-            H: 
-            <span class="current-high">
-              17
-            </span>
-            <br />
-            L: 
-            <span class="current-low">
-              9
-            </span>
+            <ul class="current-details">
+              <li>
+                Wind:
+              </li>
+              <li>
+                Humidity:
+              </li>
+              <li>
+                Precipitation:
+              </li>
+            </ul>
           </div>
-        </div>
-      </div>
     </div>
     <hr />
     <div class="row">

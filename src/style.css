@@ -17,15 +17,15 @@ h3 {
 
 h2 {
   font-size: 45px;
-  margin: 15px;
   color: #2ac9c9;
   text-transform: capitalize;
+  text-align: left;
+  margin: 10px;
 }
 
 h1 {
   font-size: 92px;
   text-align: center;
-  margin-top: 20px;
   color: #22a5a5;
 }
 
@@ -95,4 +95,14 @@ li {
 
 .open-source-link {
   text-align: center;
+}
+
+.current-description {
+  color: #22a5a5;
+  font-size: 18px;
+}
+
+.current-details {
+  text-align: left;
+  padding: 50px 30px;
 }
