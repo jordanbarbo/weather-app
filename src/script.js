@@ -18,15 +18,15 @@ getCurrentDate();
 function showTemperature(response) {
   let h1 = document.querySelector("h1");
   let temperature = Math.round(response.data.main.temp);
-  h1.innerHTML = `${temperature}°`;
+  h1.innerHTML = `${temperature}`;
   let description = document.querySelector(".current-description");
   description.innerHTML = response.data.weather[0].description;
   let currentHigh = Math.round(response.data.main.temp_max);
   let currentLow = Math.round(response.data.main.temp_min);
   let high = document.querySelector(".current-high");
   let low = document.querySelector(".current-low");
-  high.innerHTML = `${currentHigh}°`;
-  low.innerHTML = `${currentLow}°`;
+  high.innerHTML = `${currentHigh}`;
+  low.innerHTML = `${currentLow}`;
 }
 
 function findCity(event) {
