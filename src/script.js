@@ -72,7 +72,7 @@ function showForecast(response) {
             <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="Clear" />
           </li>
           <li>
-            <strong class="high-temp">${Math.round(forecast.main.temp_max)}°</strong> / <span class="low-temp">${Math.round(forecast.main.temp_min)}°</span>
+            <strong class="high-temp">${Math.round(forecast.main.temp_max)}</strong>° / <span class="low-temp">${Math.round(forecast.main.temp_min)}</span>°
           </li>
         </ul>
       </div>`;
@@ -144,14 +144,13 @@ function showFahrenheit(event) {
     let currentTemp = item.innerHTML;
     item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
 
-    console.log(item);
   });
 
   let forecastItemsLow = document.querySelectorAll(".low-temp");
   forecastItemsLow.forEach(function (item) {
     let currentTemp = item.innerHTML;
     item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
-  })
+  });
 
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
@@ -169,6 +168,18 @@ function showCelsius(event) {
 
   let lowTemperatureElement = document.querySelector("#current-low");
   lowTemperatureElement.innerHTML = `${Math.round(lowCelsiusTemperature)}°`;
+
+  let forecastItemsHigh = document.querySelectorAll(".high-temp");
+  forecastItemsHigh.forEach(function (item) {
+    let currentTemp = item.innerHTML;
+    item.innerHTML = Math.round((currentTemp - 32) * 5 / 9);
+  });
+
+  let forecastItemsLow = document.querySelectorAll(".low-temp");
+  forecastItemsLow.forEach(function (item) {
+    let currentTemp = item.innerHTML;
+    item.innerHTML = Math.round((currentTemp - 32) * 5 / 9);
+  });
 }
 
 let citySearch = document.querySelector("#city-submit-form");
