@@ -15,9 +15,12 @@ function getCurrentDate() {
 }
 getCurrentDate();
 
+
+
 function showTemperature(response) {
   let temperatureElement = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.main.temp);
+  let cityElement = document.querySelector("#city");
   let description = document.querySelector(".current-description");
   let currentHigh = Math.round(response.data.main.temp_max);
   let currentLow = Math.round(response.data.main.temp_min);
@@ -26,19 +29,23 @@ function showTemperature(response) {
   let windElement = document.querySelector("#wind");
   let humidityElement = document.querySelector("#humidity");
   temperatureElement.innerHTML = `${temperature}`;
+  cityElement.innerHTML = response.data.name;
   description.innerHTML = response.data.weather[0].description;
   high.innerHTML = `${currentHigh}`;
   low.innerHTML = `${currentLow}`;
-  windElement.innerHTML = Math.round(response.data.wind.speed);
+  windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   humidityElement.innerHTML = response.data.main.humidity;
-
-  console.log(response.data)
 }
+
+let units = "metric";
+let apiKey = "06e7a1225f8f7ed29a9fd5ba9ca81195";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&appid=${apiKey}&units=${units}`
+axios.get(apiUrl).then(showTemperature);
 
 function findCity(event) {
   event.preventDefault();
   let city = document.querySelector("#city-search")
-  let h2 = document.querySelector("h2");
+  let h2 = document.querySelector("#city");
   h2.innerHTML = city.value;
   let units = "metric";
   let apiKey = "06e7a1225f8f7ed29a9fd5ba9ca81195";

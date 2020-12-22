@@ -27,7 +27,6 @@ h2 {
 ul {
   list-style-type: none;
   padding-inline-start: 0;
-  padding-top: 10px;
 }
 
 p {
@@ -41,9 +40,7 @@ p {
 
 #current-temperature {
   font-size: 92px;
-  text-align: center;
   color: #22a5a5;
-  padding: 20px;
 }
 
 .mostly-sunny {
@@ -89,18 +86,14 @@ p {
 
 .current-description {
   text-transform: capitalize;
+  color: #22a5a5;
+  font-size: 22px;
 }
 
 .open-source-link {
   text-align: center;
 }
 
-.current-description {
-  color: #22a5a5;
-  font-size: 22px;
-}
-
 .current-details {
   text-align: left;
-  padding: 50px 30px;
 }
