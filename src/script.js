@@ -16,17 +16,23 @@ function getCurrentDate() {
 getCurrentDate();
 
 function showTemperature(response) {
-  let h1 = document.querySelector("h1");
+  let temperatureElement = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.main.temp);
-  h1.innerHTML = `${temperature}`;
   let description = document.querySelector(".current-description");
-  description.innerHTML = response.data.weather[0].description;
   let currentHigh = Math.round(response.data.main.temp_max);
   let currentLow = Math.round(response.data.main.temp_min);
   let high = document.querySelector(".current-high");
   let low = document.querySelector(".current-low");
+  let windElement = document.querySelector("#wind");
+  let humidityElement = document.querySelector("#humidity");
+  temperatureElement.innerHTML = `${temperature}`;
+  description.innerHTML = response.data.weather[0].description;
   high.innerHTML = `${currentHigh}`;
   low.innerHTML = `${currentLow}`;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  humidityElement.innerHTML = response.data.main.humidity;
+
+  console.log(response.data)
 }
 
 function findCity(event) {
@@ -46,7 +52,7 @@ citySearch.addEventListener("submit", findCity);
 function getCurrentTemperature(response) {
   let h1 = document.querySelector("h1");
   let temperature = Math.round(response.data.main.temp);
-  h1.innerHTML = `${temperature}°`;
+  h1.innerHTML = `${temperature}`;
   let h2 = document.querySelector("h2");
   h2.innerHTML = response.data.name;
   let description = document.querySelector(".current-description");
@@ -55,8 +61,8 @@ function getCurrentTemperature(response) {
   let currentLow = Math.round(response.data.main.temp_min);
   let high = document.querySelector(".current-high");
   let low = document.querySelector(".current-low");
-  high.innerHTML = `${currentHigh}°`;
-  low.innerHTML = `${currentLow}°`;
+  high.innerHTML = `${currentHigh}`;
+  low.innerHTML = `${currentLow}`;
 }
 
 function showPosition(position) {
