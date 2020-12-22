@@ -97,3 +97,12 @@ p {
 .current-details {
   text-align: left;
 }
+
+.units .active {
+  color: #22a5a5;
+  cursor: default;
+}
+
+.units .active:hover {
+  text-decoration: none;
+}
