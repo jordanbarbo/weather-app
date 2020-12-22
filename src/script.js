@@ -18,6 +18,7 @@ getCurrentDate();
 
 
 function showTemperature(response) {
+  console.log(response.data);
   let temperatureElement = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.main.temp);
   let cityElement = document.querySelector("#city");
@@ -28,6 +29,8 @@ function showTemperature(response) {
   let low = document.querySelector(".current-low");
   let windElement = document.querySelector("#wind");
   let humidityElement = document.querySelector("#humidity");
+  let iconElement = document.querySelector("#icon");
+
   temperatureElement.innerHTML = `${temperature}`;
   cityElement.innerHTML = response.data.name;
   description.innerHTML = response.data.weather[0].description;
@@ -35,11 +38,14 @@ function showTemperature(response) {
   low.innerHTML = `${currentLow}`;
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   humidityElement.innerHTML = response.data.main.humidity;
+  iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  iconElement.setAttribute("alt", response.data.weather[0].description)
 }
 
 let units = "metric";
 let apiKey = "06e7a1225f8f7ed29a9fd5ba9ca81195";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&appid=${apiKey}&units=${units}`
+let cityName = "Los Angeles";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}`
 axios.get(apiUrl).then(showTemperature);
 
 function findCity(event) {
