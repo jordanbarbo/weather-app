@@ -33,6 +33,10 @@ p {
   color: #2ac9c9;
 }
 
+strong {
+  color: #2f8787;
+}
+
 .col {
   text-align: center;
   color: #22a5a5;

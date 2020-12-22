@@ -72,7 +72,7 @@ function showForecast(response) {
             <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="Clear" />
           </li>
           <li>
-            <strong class="high-temp">${Math.round(forecast.main.temp_max)}</strong>° / <span class="low-temp">${Math.round(forecast.main.temp_min)}</span>°
+            <strong> <span class="high-temp">${Math.round(forecast.main.temp_max)}</span>°</strong> / <span class="low-temp">${Math.round(forecast.main.temp_min)}</span>°
           </li>
         </ul>
       </div>`;
