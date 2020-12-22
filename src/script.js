@@ -13,6 +13,7 @@ function getCurrentDate() {
   } 
   today.innerHTML = day + ", " + month + " " + date + " " + hour + ":" + minute;
 }
+getCurrentDate();
 
 function formatHours(timestamp) {
   let now = new Date(timestamp);
@@ -22,7 +23,7 @@ function formatHours(timestamp) {
     minute = `0${minute}`;
   }
   
-  return `${hour}:${minute}`
+  return `${hour}:${minute}`;
 }
 
 
@@ -40,6 +41,11 @@ function showTemperature(response) {
 
   celsiusTemperature = response.data.main.temp;
 
+  console.log(response.data);
+
+  highCelsiusTemperature = response.data.main.temp_max;
+  lowCelsiusTemperature = response.data.main.temp_min;
+
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
   cityElement.innerHTML = response.data.name;
   description.innerHTML = response.data.weather[0].description;
@@ -48,16 +54,14 @@ function showTemperature(response) {
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
   humidityElement.innerHTML = response.data.main.humidity;
   iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-  iconElement.setAttribute("alt", response.data.weather[0].description)
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 
 function showForecast(response) {
-  console.log(response.data);
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-
   for (let index = 0; index < 5; index++) {
     forecast = response.data.list[index];
     forecastElement.innerHTML += 
@@ -68,21 +72,21 @@ function showForecast(response) {
             <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="Clear" />
           </li>
           <li>
-            <strong>${Math.round(forecast.main.temp_max)}°</strong> / ${Math.round(forecast.main.temp_min)}°
+            <strong class="high-temp">${Math.round(forecast.main.temp_max)}°</strong> / <span class="low-temp">${Math.round(forecast.main.temp_min)}°</span>
           </li>
         </ul>
-      </div>`
+      </div>`;
   }
 }
 
 function search(city) {
-let units = "metric";
-let apiKey = "06e7a1225f8f7ed29a9fd5ba9ca81195";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-axios.get(apiUrl).then(showTemperature);
+  let units = "metric";
+  let apiKey = "06e7a1225f8f7ed29a9fd5ba9ca81195";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(showTemperature);
 
-let apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
-axios.get(apiUrlForecast).then(showForecast);
+  let apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrlForecast).then(showForecast);
 }
 
 function findCity(event) {
@@ -92,19 +96,19 @@ function findCity(event) {
 }
 
 function getCurrentTemperature(response) {
-  let h1 = document.querySelector("h1");
+  let currentTemp = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.main.temp);
-  h1.innerHTML = `${temperature}`;
-  let h2 = document.querySelector("h2");
-  h2.innerHTML = response.data.name;
+  currentTemp.innerHTML = `${temperature}`;
+  let currentCity = document.querySelector("#city");
+  currentCity.innerHTML = response.data.name;
   let description = document.querySelector(".current-description");
   description.innerHTML = response.data.weather[0].description;
   let currentHigh = Math.round(response.data.main.temp_max);
   let currentLow = Math.round(response.data.main.temp_min);
-  let high = document.querySelector(".current-high");
-  let low = document.querySelector(".current-low");
-  high.innerHTML = `${currentHigh}`;
-  low.innerHTML = `${currentLow}`;
+  let high = document.querySelector("#current-high");
+  let low = document.querySelector("#current-low");
+  high.innerHTML = `${currentHigh}°`;
+  low.innerHTML = `${currentLow}°`;
 }
 
 function showPosition(position) {
@@ -123,11 +127,34 @@ function showCurrentTemp(event) {
 
 function showFahrenheit(event) {
   event.preventDefault();
-  let fahrenheitTemp = document.querySelector("#current-temperature");
+  let temperatureElement = document.querySelector("#current-temperature");
+  let fahrenheit = Math.round(celsiusTemperature * 9/5 + 32);
+  temperatureElement.innerHTML = fahrenheit;
+  
+  let highTemperatureElement = document.querySelector("#current-high");
+  let highFahrenheitTemperature = (highCelsiusTemperature * 9) / 5 + 32;
+  highTemperatureElement.innerHTML = `${Math.round(highFahrenheitTemperature)}°`;
+
+  let lowTemperatureElement = document.querySelector("#current-low");
+  let lowFahrenheitTemperature = (lowCelsiusTemperature * 9) / 5 + 32;
+  lowTemperatureElement.innerHTML = `${Math.round(lowFahrenheitTemperature)}°`;
+
+  let forecastItemsHigh = document.querySelectorAll(".high-temp");
+  forecastItemsHigh.forEach(function (item) {
+    let currentTemp = item.innerHTML;
+    item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
+
+    console.log(item);
+  });
+
+  let forecastItemsLow = document.querySelectorAll(".low-temp");
+  forecastItemsLow.forEach(function (item) {
+    let currentTemp = item.innerHTML;
+    item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
+  })
+
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
-  let fahr = Math.round(celsiusTemperature * 9/5 + 32);
-  fahrenheitTemp.innerHTML = fahr;
 }
 
 function showCelsius(event) {
@@ -136,6 +163,12 @@ function showCelsius(event) {
   fahrenheitLink.classList.remove("active");
   celsiusLink.classList.add("active");
   celsiusTemp.innerHTML = Math.round(celsiusTemperature);
+
+  let highTemperatureElement = document.querySelector("#current-high");
+  highTemperatureElement.innerHTML = `${Math.round(highCelsiusTemperature)}°`;
+
+  let lowTemperatureElement = document.querySelector("#current-low");
+  lowTemperatureElement.innerHTML = `${Math.round(lowCelsiusTemperature)}°`;
 }
 
 let citySearch = document.querySelector("#city-submit-form");
@@ -145,6 +178,8 @@ let currentTemperatureButton = document.querySelector("#current-location-button"
 currentTemperatureButton.addEventListener("click", showCurrentTemp);
 
 let celsiusTemperature = null;
+let highCelsiusTemperature = null;
+let lowCelsiusTemperature = null;
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", showFahrenheit);
@@ -152,5 +187,4 @@ fahrenheitLink.addEventListener("click", showFahrenheit);
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", showCelsius);
 
-getCurrentDate();
 search("Los Angeles")
