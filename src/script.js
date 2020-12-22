@@ -42,21 +42,19 @@ function showTemperature(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description)
 }
 
+function search(city) {
 let units = "metric";
 let apiKey = "06e7a1225f8f7ed29a9fd5ba9ca81195";
-let cityName = "Los Angeles";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}`
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`
 axios.get(apiUrl).then(showTemperature);
+}
+
+search("Los Angeles")
 
 function findCity(event) {
   event.preventDefault();
-  let city = document.querySelector("#city-search")
-  let h2 = document.querySelector("#city");
-  h2.innerHTML = city.value;
-  let units = "metric";
-  let apiKey = "06e7a1225f8f7ed29a9fd5ba9ca81195";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=${units}`
-  axios.get(apiUrl).then(showTemperature);
+  let cityInputElement = document.querySelector("#city-search");
+  search(cityInputElement.value);
 }
 
 let citySearch = document.querySelector("#city-submit-form");
@@ -104,15 +102,13 @@ function showCelsius(event) {
 let temperatureCelsius = document.querySelector("#celsius-link");
 temperatureCelsius.addEventListener("click", showCelsius);
 
-function showFahrenheit(event) {
+function displayFahrenheit(event) {
   event.preventDefault();
   let fahr = Math.round(temperature * 9/5 + 32);
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = fahr;
+  let fahrentheitTemp = document.querySelector("#current-temperature");
+  fahrenheitTemp.innerHTML = fahr;
 }
 
-let currentTemperature = document.querySelector("#current-temperature");
-let temperature = currentTemperature.innerHTML;
-let temperatureFahrenheit = document.querySelector("#fahrenheit-link");
-temperatureFahrenheit.addEventListener("click", showFahrenheit);
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheit);
 
