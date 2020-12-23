@@ -40,9 +40,6 @@ function showTemperature(response) {
   let iconElement = document.querySelector("#icon");
 
   celsiusTemperature = response.data.main.temp;
-
-  console.log(response.data);
-
   highCelsiusTemperature = response.data.main.temp_max;
   lowCelsiusTemperature = response.data.main.temp_min;
 
@@ -118,6 +115,9 @@ function showPosition(position) {
   let apiKey = "06e7a1225f8f7ed29a9fd5ba9ca81195";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   axios.get(`${apiUrl}`).then(getCurrentTemperature);
+
+  let apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrlForecast).then(showForecast);
 }
 
 function showCurrentTemp(event) {
